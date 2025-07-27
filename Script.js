@@ -3,7 +3,7 @@
 const basePath = 'https://tk-oriken.github.io/data/';
 const indexURL = `${basePath}index.json`;
 
-fetch(indexUrl)
+fetch(indexURL)
   .then(res => res.json())
   .then(fileList => {
     fileList.forEach(fileName => {
