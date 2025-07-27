@@ -1,7 +1,7 @@
 //jsonファイルのあるディレクトリのパスとファイル情報(index.json)のパス
 //いじるな
-const basePath = 'https://tk-oriken.github.io/data/';
-const indexURL = `${basePath}index.json`;
+const basePath = 'https://tk-oriken.github.io/data/Products/';
+const indexURL = 'https://tk-oriken.github.io/data/index.json';
 
 fetch(indexURL)
   .then(res => res.json())
