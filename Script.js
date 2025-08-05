@@ -16,7 +16,7 @@ fetch(indexURL)
       {
         try{
           const img = document.createElement('img');
-          img.src = baseUrl + ext;
+          img.src = basePath + fileName + ext;
           img.alt = `画像(${ext})`;
 
           img.onload = () => {
