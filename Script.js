@@ -7,17 +7,17 @@ const imgExt = [".png", ".jpeg"];
 fetch(indexURL)
   .then(res => res.json())
   .then(fileList => {
-    const imageList = document.querySelector('imageList');
+    var imageList = document.querySelector('imageList');
 
     fileList.forEach(fileName => {
-      const item = document.createElement('li');
+      var item = document.createElement('li');
 
       var loaded = false;
       for(let ext of imgExt)
       {
         try{
           //TRY
-          const img = document.createElement('img');
+          var img = document.createElement('img');
           img.src = basePath + fileName + ext;
           img.alt = `(${ext})`;
 
@@ -40,19 +40,19 @@ fetch(indexURL)
       fetch(basePath + fileName + ".json")
       .then(res => res.json())
       .then(data => {
-        const pro = document.createElement('p');
+        var pro = document.createElement('p');
         pro.textContent = data.productName;
         item.appendChild(pro);
 
-        const inv = document.createElement('p');
+        var inv = document.createElement('p');
         inv.textContent = data.inventor;
         item.appendChild(inv);
 
-        const manu = document.createElement('p');
+        var manu = document.createElement('p');
         manu.textContent = data.manufacturer;
         item.appendChild(manu);
 
-        const paper = document.createElement('p');
+        var paper = document.createElement('p');
         paper.textContent = data.paperSize;
         item.appendChild(paper);
       })
