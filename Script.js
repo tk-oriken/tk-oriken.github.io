@@ -31,7 +31,7 @@ fetch(indexURL)
           };
         }
         catch{
-
+          console.log("ぬるぽ");
         }
       }
 
