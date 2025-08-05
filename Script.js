@@ -8,45 +8,52 @@ fetch(indexURL)
   .then(res => res.json())
   .then(fileList => {
     const imageList = document.querySelector('imageList');
+
     fileList.forEach(fileName => {
       const item = document.createElement('li');
 
-      if(ItemExist(basePath + fileName))
-      {
-        const img = document.createElement('img');
-        img.src = basePath + fileName + ".png";
-        img.alt = fileName;
-        img.width = 200;
-        document.getElementById('list').appendChild(img);
-      }
+      imgExt.forEach(ext => {
+        try{
+          fetch(basePath + fileName + ext)
+          .then(res => {
+            if(res.ok) return res.blob();
+            })
+          .then(blob =>{
+            const imageUrl = URL.createObjectURL(blob);
+            const img = document.createElement('img');
+            img.src = imageUrl;
+            img.alt = fileName;
+            img.width = 200;
+            item.appendChild(img);
+          })
+        }
+        catch{
+
+        }
+      });
+
+      fetch(basePath + fileName + ".json")
+      .then(res => res.json())
+      .then(data => {
+        const pro = document.createElement('p');
+        pro.textContent = data.productName;
+        item.appendChild(pro);
+
+        const inv = document.createElement('p');
+        inv.textContent = data.inventor;
+        item.appendChild(inv);
+
+        const manu = document.createElement('p');
+        manu.textContent = data.manufacturer;
+        item.appendChild(menu);
+
+        const paper = document.createElement('p');
+        paper.textContent = data.paperSize;
+        item.appendChild(paper);
+      })
     });
   })
   .catch(err => {
     console.error('index.json の取得に失敗しました', err);
-  });
-
-function ItemExist(url){
-  var i = ImageExist(url);
-  var t = TextExist(url)
-  return (i && t);
-}
-
-function TextExist(url){
-  fetch(url + ".json")
-  .then(Response =>{
-    if(Response.status == 200) return true;
-    else return false;
   }
-  )
-}
-
-function ImageExist(url){
-  imgExt.forEach(ext => {
-    fetch(url + ext)
-    .then(Response => {
-      if(Response.status == 200) return true;
-      else return;
-    })
-  });
-  return false;
-}
+);
