@@ -15,11 +15,13 @@ fetch(indexURL)
       var loaded = false;
       for(let ext of imgExt)
       {
-        try{
-          //TRY
+        if(checkFileExists(basePath + fileName + ext))
+        {
           var img = document.createElement('img');
           img.src = basePath + fileName + ext;
           img.alt = `(${ext})`;
+          img.width = 200;
+          img.height = 200;
 
           img.onload = () => {
             if (!loaded) {
@@ -31,9 +33,6 @@ fetch(indexURL)
           img.onerror = () => {
             console.log(`読み込み失敗: ${img.src}`);
           };
-        }
-        catch{
-          console.log("ぬるぽ");
         }
       }
 
@@ -67,3 +66,30 @@ fetch(indexURL)
     console.error('index.json の取得に失敗しました', err);
   }
 );
+
+async function checkFileExists(url) {
+  try {
+    const response = await fetch(url, {
+      headers: {
+        'Accept': 'application/vnd.github.v3+json'
+      }
+    });
+
+    if (response.ok) {
+      console.log("✅ ファイルは存在します！");
+      return true;
+    } else if (response.status === 404) {
+      console.log("❌ ファイルは存在しません！");
+      return false;
+    } else {
+      console.log(`⚠️ エラー：${response.status}`);
+      return false;
+    }
+  } catch (error) {
+    console.error("⚡ ネットワークエラーまたは例外:", error);
+    return false;
+  }
+}
+
+// 使い方例：
+checkFileExists('octocat', 'Hello-World', 'README.md');
