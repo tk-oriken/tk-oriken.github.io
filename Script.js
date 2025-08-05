@@ -7,7 +7,7 @@ const imgExt = [".png", ".jpeg"];
 fetch(indexURL)
   .then(res => res.json())
   .then(fileList => {
-    var imageList = document.querySelector('image-list');
+    let imageList = document.querySelector('image-list');
 
     fileList.forEach(fileName => {
       var item = document.createElement('li');
@@ -55,8 +55,9 @@ fetch(indexURL)
         var paper = document.createElement('p');
         paper.textContent = data.paperSize;
         item.appendChild(paper);
-      })
 
+      })
+      console.log(item);
       imageList.appendChild(item);
     });
   })
