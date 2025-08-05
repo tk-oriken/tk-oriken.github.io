@@ -14,8 +14,8 @@ fetch(indexURL)
 
       for(let ext of imgExt)
       {
-        //UPDATE
         try{
+          //TRY
           const img = document.createElement('img');
           img.src = basePath + fileName + ext;
           img.alt = `(${ext})`;
