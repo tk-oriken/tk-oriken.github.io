@@ -17,7 +17,7 @@ fetch(indexURL)
         try{
           const img = document.createElement('img');
           img.src = basePath + fileName + ext;
-          img.alt = `画像(${ext})`;
+          img.alt = `(${ext})`;
 
           img.onload = () => {
             if (!loaded) {
@@ -54,6 +54,8 @@ fetch(indexURL)
         paper.textContent = data.paperSize;
         item.appendChild(paper);
       })
+
+      imageList.appendChild(item);
     });
   })
   .catch(err => {
