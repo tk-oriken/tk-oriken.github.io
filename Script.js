@@ -57,6 +57,8 @@ fetch(indexURL)
         item.appendChild(paper);
 
       })
+
+      console.log(imageList);
       console.log(item);
       imageList.appendChild(item);
     });
