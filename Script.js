@@ -7,7 +7,7 @@ const imgExt = [".png", ".jpeg"];
 fetch(indexURL)
   .then(res => res.json())
   .then(fileList => {
-    let imageList = document.querySelector('image-list');
+    let imageList = document.getElementById('image-list');
 
     fileList.forEach(fileName => {
       var item = document.createElement('li');
