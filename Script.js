@@ -14,20 +14,25 @@ fetch(indexURL)
 
       for(let ext of imgExt)
       {
-        const img = document.createElement('img');
-        img.src = baseUrl + ext;
-        img.alt = `画像(${ext})`;
+        try{
+          const img = document.createElement('img');
+          img.src = baseUrl + ext;
+          img.alt = `画像(${ext})`;
 
-        img.onload = () => {
-          if (!loaded) {
-            loaded = true;
-            item.appendChild(img);
-          }
-        };
+          img.onload = () => {
+            if (!loaded) {
+              loaded = true;
+              item.appendChild(img);
+            }
+          };
 
-        img.onerror = () => {
-          console.log(`読み込み失敗: ${img.src}`);
-        };
+          img.onerror = () => {
+            console.log(`読み込み失敗: ${img.src}`);
+          };
+        }
+        catch{
+
+        }
       }
 
       fetch(basePath + fileName + ".json")
