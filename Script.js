@@ -12,6 +12,7 @@ fetch(indexURL)
     fileList.forEach(fileName => {
       const item = document.createElement('li');
 
+      var loaded = false;
       for(let ext of imgExt)
       {
         try{
