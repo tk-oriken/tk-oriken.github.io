@@ -12,25 +12,23 @@ fetch(indexURL)
     fileList.forEach(fileName => {
       const item = document.createElement('li');
 
-      imgExt.forEach(ext => {
-        try{
-          fetch(basePath + fileName + ext)
-          .then(res => {
-            if(res.ok) return res.blob();
-            })
-          .then(blob =>{
-            const imageUrl = URL.createObjectURL(blob);
-            const img = document.createElement('img');
-            img.src = imageUrl;
-            img.alt = fileName;
-            img.width = 200;
-            item.appendChild(img);
-          })
-        }
-        catch{
+      for(let ext of imgExt)
+      {
+        const img = document.createElement('img');
+        img.src = baseUrl + ext;
+        img.alt = `画像(${ext})`;
 
-        }
-      });
+        img.onload = () => {
+          if (!loaded) {
+            loaded = true;
+            item.appendChild(img);
+          }
+        };
+
+        img.onerror = () => {
+          console.log(`読み込み失敗: ${img.src}`);
+        };
+      }
 
       fetch(basePath + fileName + ".json")
       .then(res => res.json())
@@ -45,7 +43,7 @@ fetch(indexURL)
 
         const manu = document.createElement('p');
         manu.textContent = data.manufacturer;
-        item.appendChild(menu);
+        item.appendChild(manu);
 
         const paper = document.createElement('p');
         paper.textContent = data.paperSize;
