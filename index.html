@@ -6,17 +6,19 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <h1>Hello, World</h1>
-        <h1>これはテストメッセージです</h1>
-        <p id = 'output'></p>
-        <ul id = 'image-list'></ul>
-        
-        <script src="Script.js">
-            document.addEventListener("DOMContentLoaded", function () {
-                console.log("DOMが読み込まれました!");  
-                Awake();
-            });
+        <div id = "overlay">
+            <img src="" alt="">
+        </div>
+        <div id = "loadPanel" class="loading.container">
+            
 
-        </script>
+
+        </div>
+        <div class="container">
+            <ul id = 'image-list'></ul>
+
+        </div>
+        
+        <script src="Script.js"></script>
     </body>
 </html>

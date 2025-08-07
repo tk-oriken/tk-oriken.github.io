@@ -1,0 +1,9 @@
+{
+    "MenuItems" : [
+        {
+            "buttonName" : "Home",
+            "URL" : "index.html",
+            "inside" : true
+        }
+    ]
+}

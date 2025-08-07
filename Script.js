@@ -1,43 +1,54 @@
-//jsonファイルのあるディレクトリのパスとファイル情報(index.json)のパス
-//いじるな
-const basePath = 'https://tk-oriken.github.io/data/Products/';
-const indexURL = 'https://tk-oriken.github.io/data/index.json';
-const imgExt = [".png", ".jpeg"];
+document.addEventListener("DOMContentLoaded", async () => {
+  console.log("DOMの読み込みが完了しました");
+
+  await Awake();
+});
 
 async function Awake() {
+  const basePath = 'https://tk-oriken.github.io';
+  const imgExt = [".png", ".jpeg"];
 
-  //Load Our Products
-  await fetch(indexURL)
+  document.documentElement.classList.add('no-scroll'); // html
+  document.body.classList.add('no-scroll');   
+
+  //Make Overlay Appear
+  let over = document.getElementById('overlay');
+  over.classList.remove("hidden");
+
+  //Set Title Panel
+  let loading = document.getElementById('loadPanel');
+  loading.classList.remove("hide");
+
+  //Load and Create Our Products
+  await fetch(basePath + "/data/index.json")
   .then(res => res.json())
-  .then(fileList => {
+  .then(async fileList => {
     let imageList = document.getElementById('image-list'); //コンテンツの親オブジェクト
 
-    fileList.forEach(fileName => {
+    for(let num = 0; num < fileList.length; num++)
+    {
       let item = document.createElement('li'); //子オブジェクトを作成
+      let fileName = fileList[num];
 
       //#region : Set Image
-      let created = false;
       for(let i = 0; i < imgExt.length; i++)
       {
-        if(created) break;
-        let check = checkFileExists(basePath + fileName + imgExt[i]);
-        check.then(res =>{
-          if(res == true)
-          {
-            let img = document.createElement('img');
-            img.src = basePath + fileName + imgExt[i];
-            img.alt = `(${imgExt[i]})`;
-            img.width = 200;
-            img.height = 200;
-            item.appendChild(img);
-            created = true;
-          }
-        })
+        if(await checkFileExists(basePath + "/data/Products/" + fileName + imgExt[i]) == true)
+        {
+          let img = document.createElement('img');
+          img.src = basePath + fileName + imgExt[i];
+          img.alt = `(${imgExt[i]})`;
+          img.width = 200;
+          img.height = 200;
+          item.appendChild(img);
+          created = true;
+          break;
+        }
       }
       //#endregion
 
       //#region : Set Texts
-      fetch(basePath + fileName + ".json")
+      fetch(basePath + "/data/Products/" + fileName + ".json")
       .then(res => res.json())
       .then(data => {
         var pro = document.createElement('p');
@@ -59,74 +70,23 @@ async function Awake() {
       //#endregion
 
       console.log(item);
-      imageList.appendChild(item);
-    });
+      imageList.appendChild(item);      
+    }
   })
   .catch(err => {
-    console.error('index.json の取得に失敗しました', err);
+    console.error('Some Error Happened during Generating the Images', err);
     return;
   });
 
+  await delay(2000);
 
+  //Make Overlay 
+  document.documentElement.classList.remove('no-scroll');
+  document.body.classList.remove('no-scroll');
+  over.classList.add("hidden")
+
+  loading.classList.add("hide");
 }
-
-/*
-fetch(indexURL)
-  .then(res => res.json())
-  .then(fileList => {
-    let imageList = document.getElementById('image-list');
-
-    fileList.forEach(fileName => {
-      let item = document.createElement('li');
-
-      let created = false;
-      for(let i = 0; i < imgExt.length; i++)
-      {
-        if(created) break;
-
-        let check = checkFileExists(basePath + fileName + imgExt[i]);
-        check.then(res =>{
-          if(res == true)
-          {
-            let img = document.createElement('img');
-            img.src = basePath + fileName + imgExt[i];
-            img.alt = `(${imgExt[i]})`;
-            img.width = 200;
-            img.height = 200;
-            item.appendChild(img);
-            created = true;
-          }
-        })
-      }
-
-      fetch(basePath + fileName + ".json")
-      .then(res => res.json())
-      .then(data => {
-        var pro = document.createElement('p');
-        pro.textContent = data.productName;
-        item.appendChild(pro);
-
-        var inv = document.createElement('p');
-        inv.textContent = data.inventor;
-        item.appendChild(inv);
-
-        var manu = document.createElement('p');
-        manu.textContent = data.manufacturer;
-        item.appendChild(manu);
-
-        var paper = document.createElement('p');
-        paper.textContent = data.paperSize;
-        item.appendChild(paper);
-      })
-
-      console.log(item);
-      imageList.appendChild(item);
-    });
-  })
-  .catch(err => {
-    console.error('index.json の取得に失敗しました', err);
-  }
-);
 
 async function checkFileExists(url) {
 
@@ -153,4 +113,7 @@ async function checkFileExists(url) {
     return false;
   }
 }
-*/
+
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
