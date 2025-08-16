@@ -1,24 +1,35 @@
 <!DOCTYPE html>
 <html>
-    <head> 
-        <meta charset="UTF-8" />
-        <title> Oriken GitHub Page</title>
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
-        <div id = "overlay">
-            <img src="" alt="">
-        </div>
-        <div id = "loadPanel" class="loading.container">
-            
+  <head>
+    <meta charset="UTF-8" />
+    <title>Oriken GitHub Page</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="overlay">
+      <img src="" alt="" />
+    </div>
 
+    <div id="loadPanel" class="loading"></div>
 
-        </div>
-        <div class="container">
-            <ul id = 'image-list'></ul>
+    <header>
+      <div class="hamburger" id="hamburger">☰</div>
+      <nav class="mobile-menu" id="mobileMenu">
+        <ul id="mobileMenuList"></ul>
+      </nav>
+    </header>
 
-        </div>
-        
-        <script src="Script.js"></script>
-    </body>
+    <main>
+      <div class="container">
+        <aside class="desktop-menu">
+          <ul id="desktopMenuList"></ul>
+        </aside>
+        <section class="content">
+          <ul id="image-list"></ul>
+          <div style="height: 2000px"></div>
+        </section>
+      </div>
+    </main>
+    <script src="Script.js"></script>
+  </body>
 </html>

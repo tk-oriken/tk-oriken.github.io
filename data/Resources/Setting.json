@@ -2,8 +2,11 @@
     "MenuItems" : [
         {
             "buttonName" : "Home",
-            "URL" : "index.html",
-            "inside" : true
+            "url" : "index.html"
+        },
+        {
+            "buttonName" : "特設ページ",
+            "url" : "index.html"
         }
     ]
 }
